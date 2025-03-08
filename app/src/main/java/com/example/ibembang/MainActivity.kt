@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.ui.text.style.TextAlign
 
 
 class MainActivity : ComponentActivity() {
@@ -58,11 +59,21 @@ fun LoginScreenUI(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .padding(24.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
-        Text(text = "LOGIN", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+        Text(
+            text = "LOGIN",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Start // Ensures text is left-aligned
+            )
         Spacer(modifier = Modifier.height(4.dp))
-        Text(text = "Welcome back to BemBang Hotel App.", fontSize = 14.sp, color = Color.Black)
+        Text(
+            text = "Welcome back to BemBang Hotel App.",
+            fontSize = 14.sp,
+            color = Color.Black,
+            textAlign = TextAlign.Start // Ensures text is left-aligned
+            )
         Spacer(modifier = Modifier.height(24.dp))
 
         OutlinedTextField(
@@ -114,9 +125,9 @@ fun LoginScreenUI(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Divider(modifier = Modifier.weight(1f), color = Color.Gray, thickness = 1.dp)
+            HorizontalDivider(modifier = Modifier.weight(1f), color = Color.Gray, thickness = 1.dp)
             Text(text = " or sign in with ", fontSize = 14.sp, color = Color.Gray)
-            Divider(modifier = Modifier.weight(1f), color = Color.Gray, thickness = 1.dp)
+            HorizontalDivider(modifier = Modifier.weight(1f), color = Color.Gray, thickness = 1.dp)
         }
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -136,16 +147,21 @@ fun LoginScreenUI(modifier: Modifier = Modifier) {
         }
         Spacer(modifier = Modifier.height(16.dp))
 
-        Row {
-            Text(text = "Don't have an account?", fontSize = 14.sp)
-            Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                text = "Register now",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Blue,
-                modifier = Modifier.clickable { }
-            )
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center // Centers the Row inside the Box
+        ) {
+            Row {
+                Text(text = "Don't have an account?", fontSize = 14.sp)
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = "Register now",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Blue,
+                    modifier = Modifier.clickable { /* Handle Register */ }
+                )
+            }
         }
     }
 }
