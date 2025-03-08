@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.IBEMBANG" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background color -->
+        <item name="windowSplashScreenBackground">@color/splash_bg_blue</item>
+
+        <!-- Use your custom logo instead of the default Android logo -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/img</item>
+        <!-- Optional: Set animation duration -->
+        <item name="windowSplashScreenAnimationDuration">300</item>
+
+        <!-- Optional: Set theme for after splash ends -->
+        <item name="postSplashScreenTheme">@style/Theme.IBEMBANG</item>
+    </style>
+
+</resources>

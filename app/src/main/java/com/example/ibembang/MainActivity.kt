@@ -128,7 +128,7 @@ fun LoginScreenUI(modifier: Modifier = Modifier) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_google),
                 contentDescription = "Google Sign-In",
-                modifier = Modifier.size(4 0.dp),
+                modifier = Modifier.size(40.dp),
                 tint = Color.Unspecified
             )
             Spacer(modifier = Modifier.width(8.dp))
