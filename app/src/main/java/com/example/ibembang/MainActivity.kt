@@ -19,10 +19,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             IBEMBANGTheme {
                 val navController = rememberNavController()
-                NavHost(navController, startDestination = "login") {
+                NavHost(navController, startDestination = "welcome") {
+                    composable("welcome") { WelcomePage(navController) }
                     composable("login") { LoginScreen(navController) }
                     composable("register") { CreateAccount(navController) }
-                    //composable("home") { HomeScreen(navController) }
+                    composable("home") { HomeScreen(navController) }
+
                 }
             }
         }
