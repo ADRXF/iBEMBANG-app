@@ -57,5 +57,7 @@ fun WelcomePage(navController: NavController){
 @Preview
 @Composable
 fun PreviewWelcomeScreen() {
+    println("Hello, Kotlin!")
+
     WelcomePage(navController = rememberNavController())
 }
