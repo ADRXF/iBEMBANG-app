@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="splash_bg_blue">#1C274C</color>
+    <color name="font_color_drkblu">#1C274C</color>
+    <color name="MainBgColor">#F0EEEE</color>
+    <color name="ContentBgColor">#F7F7F7</color>
 </resources>

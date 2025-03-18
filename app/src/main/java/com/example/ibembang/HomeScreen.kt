@@ -16,29 +16,32 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.foundation.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.style.*
+import androidx.compose.ui.graphics.RectangleShape
 
 
 @Composable
 fun HomeScreen(navController: NavController) {
     Scaffold(
+        bottomBar = { BottomNavigationBar(navController) },
         content = { paddingValues ->
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.White)
+                    .background(colorResource(id = R.color.MainBgColor))
                     .padding(paddingValues) // Automatically adjusts for system bars
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .background(colorResource(id = R.color.ContentBgColor))
                         .padding(top = 5.dp)
                 ) {
                     GreetingSection()
@@ -46,9 +49,7 @@ fun HomeScreen(navController: NavController) {
 
                 LazyColumn(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(bottom = 16.dp) // Prevent content from getting hidden
-                        .navigationBarsPadding(), // Respect system nav bar
+                        .fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
                     item { BookingSection() }
@@ -75,38 +76,49 @@ fun GreetingSection() {
                 text = "Hi, Leonard!",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Blue
+                color = colorResource(id = R.color.font_color_drkblu)
                 )
-            Text(text = "Book now to enjoy our deals.", fontSize = 14.sp, color = Color.Black)
+            Text(
+                text = "Book now to enjoy our deals.",
+                fontSize = 14.sp,
+                color = colorResource(id = R.color.font_color_drkblu)
+
+            )
         }
-        Image(
-            painter = painterResource(id = R.drawable.profile_img), // Replace with real image
-            contentDescription = "Profile Picture",
-            modifier = Modifier
-                .size(40.dp)
-                .clip(CircleShape)
-                .border(2.dp, Color.Gray, CircleShape)
+        Icon(
+            painter = painterResource(id = R.drawable.ic_notification),
+            contentDescription = "Notification",
+            modifier = Modifier.size(30.dp), // Set a fixed size
+            tint = Color.Unspecified // Keeps the original color of the drawable
         )
+
     }
 }
 
 // BOOKING SECTION
 @Composable
 fun BookingSection() {
-    Card(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.LightGray)
+            .padding(
+                top = 16.dp,
+                bottom = 16.dp
+            )
+            .background(colorResource(id = R.color.ContentBgColor))
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
 
             // First Row - Room Type & Guests
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = 20.dp,
+                        end = 20.dp
+                    ),
+
+                horizontalArrangement = Arrangement.spacedBy(13.dp)
             ) {
                 Column(
                     modifier = Modifier.weight(1f)
@@ -120,7 +132,7 @@ fun BookingSection() {
                     )
 
                     Spacer(modifier = Modifier.height(4.dp))
-                    TextField(
+                    OutlinedTextField(
                         value = "Bembang Deluxe",
                         onValueChange = {},
                         leadingIcon = { Icon(Icons.Default.Home, contentDescription = null) },
@@ -129,15 +141,14 @@ fun BookingSection() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(56.dp), // Ensuring uniform height
+
                         colors = TextFieldDefaults.colors( // will make the textfield color white
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
-                            disabledContainerColor = Color.White,
-                            focusedIndicatorColor = Color.Transparent,  // Removes underline when focused
-                            unfocusedIndicatorColor = Color.Transparent, // Removes underline when not focused
-                            disabledIndicatorColor = Color.Transparent // Removes underline when disabled
+                            focusedIndicatorColor = colorResource(id = R.color.font_color_drkblu), // Border color when focused
+                            unfocusedIndicatorColor = Color.LightGray // Border color when not focused
                         ),
-                        shape = RoundedCornerShape(12.dp) // Rounded corners
+                        shape = RoundedCornerShape(5.dp) // Rounded corners
                     )
                 }
                 Column(modifier = Modifier.weight(1f)) {
@@ -149,7 +160,7 @@ fun BookingSection() {
                         //overflow = TextOverflow.Ellipsis
                     )
                     Spacer(modifier = Modifier.height(4.dp))
-                    TextField(
+                    OutlinedTextField(
                         value = "2 Guests",
                         onValueChange = {},
                         leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
@@ -161,12 +172,10 @@ fun BookingSection() {
                         colors = TextFieldDefaults.colors( // will make the textfield color white
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
-                            disabledContainerColor = Color.White,
-                            focusedIndicatorColor = Color.Transparent,  // Removes underline when focused
-                            unfocusedIndicatorColor = Color.Transparent, // Removes underline when not focused
-                            disabledIndicatorColor = Color.Transparent // Removes underline when disabled
+                            focusedIndicatorColor = colorResource(id = R.color.font_color_drkblu), // Border color when focused
+                            unfocusedIndicatorColor = Color.LightGray // Border color when not focused
                         ),
-                        shape = RoundedCornerShape(12.dp) //Rounded corners
+                        shape = RoundedCornerShape(5.dp) // Rounded corners
                     )
                 }
             }
@@ -175,8 +184,13 @@ fun BookingSection() {
 
             // Second Row - Check-in & Check-out
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = 20.dp,
+                        end = 20.dp
+                    ),
+                horizontalArrangement = Arrangement.spacedBy(13.dp)
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -187,7 +201,7 @@ fun BookingSection() {
                         //overflow = TextOverflow.Ellipsis
                     )
                     Spacer(modifier = Modifier.height(4.dp))
-                    TextField(
+                    OutlinedTextField(
                         value = "02-14-2025",
                         onValueChange = {},
                         leadingIcon = { Icon(Icons.Default.DateRange, contentDescription = null) },
@@ -199,12 +213,10 @@ fun BookingSection() {
                         colors = TextFieldDefaults.colors( // will make the textfield color white
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
-                            disabledContainerColor = Color.White,
-                            focusedIndicatorColor = Color.Transparent,  // Removes underline when focused
-                            unfocusedIndicatorColor = Color.Transparent, // Removes underline when not focused
-                            disabledIndicatorColor = Color.Transparent // Removes underline when disabled
+                            focusedIndicatorColor = colorResource(id = R.color.font_color_drkblu), // Border color when focused
+                            unfocusedIndicatorColor = Color.LightGray // Border color when not focused
                         ),
-                        shape = RoundedCornerShape(12.dp) //Rounded corners
+                        shape = RoundedCornerShape(5.dp) // Rounded corners
                     )
                 }
                 Column(modifier = Modifier.weight(1f)) {
@@ -216,7 +228,7 @@ fun BookingSection() {
                         //overflow = TextOverflow.Ellipsis
                         )
                     Spacer(modifier = Modifier.height(4.dp))
-                    TextField(
+                    OutlinedTextField(
                         value = "02-15-2025",
                         onValueChange = {},
                         leadingIcon = { Icon(Icons.Default.DateRange, contentDescription = null) },
@@ -228,12 +240,10 @@ fun BookingSection() {
                         colors = TextFieldDefaults.colors( // will make the textfield color white
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
-                            disabledContainerColor = Color.White,
-                            focusedIndicatorColor = Color.Transparent,  // Removes underline when focused
-                            unfocusedIndicatorColor = Color.Transparent, // Removes underline when not focused
-                            disabledIndicatorColor = Color.Transparent // Removes underline when disabled
+                            focusedIndicatorColor = colorResource(id = R.color.font_color_drkblu), // Border color when focused
+                            unfocusedIndicatorColor = Color.LightGray // Border color when not focused
                         ),
-                        shape = RoundedCornerShape(12.dp) //Rounded corners
+                        shape = RoundedCornerShape(5.dp) // Rounded corners
                     )
                 }
             }
@@ -243,7 +253,13 @@ fun BookingSection() {
             // Book Now Button
             Button(
                 onClick = { /* TODO */ },
-                modifier = Modifier.fillMaxWidth(),
+                shape = RectangleShape,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        start = 20.dp,
+                        end = 20.dp
+                    ),
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF122E66))
             ) {
                 Text("Book now", color = Color.White)
@@ -256,52 +272,58 @@ fun BookingSection() {
 // REWARDS SECTION
 @Composable
 fun RewardsSection() {
-    Card(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
-            .height(170.dp), // Adjust height for better spacing
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF122E66))
-    ) {
-        Row(
+            .background(colorResource(id = R.color.ContentBgColor))
+    ){
+        Card(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+                .fillMaxWidth()
+                .padding(16.dp)
+                .height(170.dp), // Adjust height for better spacing
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFF122E66))
         ) {
-            Column(
-                modifier = Modifier.weight(2f)
-            ) {
-                Text(
-                    "Book, Collect, and enjoy the perks with Bembang points",
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp,
-                    lineHeight = 20.sp
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                Button(
-                    onClick = { /* TODO */ },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF007BFF)),
-                    shape = RoundedCornerShape(20.dp),
-                    modifier = Modifier
-                        .width(120.dp) // Smaller button
-                        .height(36.dp)
-                ) {
-                    Text("Start now", color = Color.White, fontSize = 14.sp)
-                }
-            }
-            //Spacer(modifier = Modifier.width(8.dp)) // Adjust spacing between text and image
-            Image(
-                painter = painterResource(id = R.drawable.perks_badge), // Use your sticker image
-                contentDescription = null,
+            Row(
                 modifier = Modifier
-                    .fillMaxWidth(0.3f) // 30% of the parent width
-                    .aspectRatio(1f) // Keeps the image square
-            )
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Column(
+                    modifier = Modifier.weight(2f)
+                ) {
+                    Text(
+                        "Book, Collect, and enjoy the perks with Bembang points",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp,
+                        lineHeight = 20.sp
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))
+                    Button(
+                        onClick = { /* TODO */ },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF007BFF)),
+                        shape = RoundedCornerShape(20.dp),
+                        modifier = Modifier
+                            .width(120.dp) // Smaller button
+                            .height(36.dp)
+                    ) {
+                        Text("Start now", color = Color.White, fontSize = 14.sp)
+                    }
+                }
+                //Spacer(modifier = Modifier.width(8.dp)) // Adjust spacing between text and image
+                Image(
+                    painter = painterResource(id = R.drawable.perks_badge), // Use your sticker image
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth(0.3f) // 30% of the parent width
+                        .aspectRatio(1f) // Keeps the image square
+                )
+            }
         }
     }
 }
@@ -311,117 +333,95 @@ fun RewardsSection() {
 // TOP ROOM CHOICES SECTION
 @Composable
 fun TopRoomsSection() {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text("Top Room Choices!", fontWeight = FontWeight.Bold, fontSize = 18.sp)
-            Text("View all", color = Color.Gray, fontSize = 14.sp, fontWeight = FontWeight.Medium)
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-            shape = RoundedCornerShape(12.dp),
-            colors = CardDefaults.cardColors(containerColor = Color.White)
-        ) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(colorResource(id = R.color.ContentBgColor))
+    ){
+        Column(modifier = Modifier.padding(16.dp)) {
             Row(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.bembang_deluxe),
-                    contentDescription = "Room Image",
-                    contentScale = ContentScale.Crop,  // Keeps proportions, crops excess
+                Text("Top Room Choices!", fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Text("View all", color = Color.Gray, fontSize = 14.sp, fontWeight = FontWeight.Medium)
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(colorResource(id = R.color.ContentBgColor))
+            ) {
+                Row(
                     modifier = Modifier
-                        .width(110.dp)  // Set a fixed width
-                        .height(110.dp) // Set a fixed height
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(Color.Gray) // Helps visualize space if image doesn't load
-                )
-
-
-                Spacer(modifier = Modifier.width(12.dp))
-
-                Column(modifier = Modifier.weight(1f)) {
-                    Text("Bembang Deluxe", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Star, contentDescription = "Star", tint = Color(0xFFFFD700))
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text("5.0 (69 Reviews)", fontSize = 14.sp, color = Color.Gray)
-                    }
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(Icons.Default.Person, contentDescription = "Guests", tint = Color.Gray)
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text("2 Guests", fontSize = 14.sp, color = Color.Gray)
-                    }
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text("350 PHP / 3hrs", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Color.Black)
-
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Button(
-                        onClick = { /* Future process here */ },
-                        shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF007AFF)),
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.bembang_deluxe),
+                        contentDescription = "Room Image",
+                        contentScale = ContentScale.Crop,  // Keeps proportions, crops excess
                         modifier = Modifier
-                            .width(100.dp) // Smaller button
-                            .height(36.dp)
-                    ) {
-                        Text("VIEW", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                    }
-                }
+                            .width(130.dp)  // Set a fixed width
+                            .height(150.dp) // Set a fixed height
+                            .clip(RoundedCornerShape(5.dp))
+                            .background(Color.Gray) // Helps visualize space if image doesn't load
+                    )
 
+                    Spacer(modifier = Modifier.width(12.dp))
+
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                    ) {
+                        Text("Bembang Deluxe", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Default.Star,
+                                contentDescription = "Star",
+                                tint = Color(0xFFFFD700)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text("5.0 (69 Reviews)", fontSize = 14.sp, color = Color.Gray)
+                        }
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Default.Person,
+                                contentDescription = "Guests",
+                                tint = Color.Gray
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text("2 Guests", fontSize = 14.sp, color = Color.Gray)
+                        }
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        Text("350 PHP / 3hrs", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = Color.Black)
+
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Button(
+                            onClick = { /* Future process here */ },
+                            shape = RoundedCornerShape(20.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF007AFF)),
+                            modifier = Modifier
+                                .width(100.dp) // Smaller button
+                                .height(36.dp)
+                        ) {
+                            Text("VIEW", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+                        }
+                    }
+
+                }
             }
         }
     }
+
 }
-
-
-// BOTTOM NAVIGATION BAR
-//@Composable
-//fun BottomNavBar(navController: NavController) {
-//    BottomNavigation(
-//        backgroundColor = Color.White,
-//        elevation = 8.dp
-//    ) {
-//        BottomNavigationItem(
-//            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-//            label = { Text("HOME") },
-//            selected = true,
-//            onClick = { /* Navigate */ }
-//        )
-//        BottomNavigationItem(
-//            icon = { Icon(Icons.Default.Hotel, contentDescription = "Rooms") },
-//            label = { Text("ROOMS") },
-//            selected = false,
-//            onClick = { /* Navigate */ }
-//        )
-//        BottomNavigationItem(
-//            icon = { Icon(Icons.Default.Email, contentDescription = "Message") },
-//            label = { Text("MESSAGE") },
-//            selected = false,
-//            onClick = { /* Navigate */ }
-//        )
-//        BottomNavigationItem(
-//            icon = { Icon(Icons.Default.ShoppingBag, contentDescription = "Booking") },
-//            label = { Text("BOOKING") },
-//            selected = false,
-//            onClick = { /* Navigate */ }
-//        )
-//        BottomNavigationItem(
-//            icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
-//            label = { Text("PROFILE") },
-//            selected = false,
-//            onClick = { /* Navigate */ }
-//        )
-//    }
-//}
-
 
 @Preview
 @Composable
