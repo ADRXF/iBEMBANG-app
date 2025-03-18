@@ -31,6 +31,10 @@ class MainActivity : ComponentActivity() {
                     composable("otpverify") { OTPverification (navController) }
                     composable("congrats"){Congratulation(navController)}
                     composable("PersonalInformationGathering") { PersonalInformationGathering (navController) }
+                    composable("rooms") { RoomScreen(navController) }
+                    composable("message") { MessageScreen(navController) }
+                    composable("booking") { BookingScreen(navController) }
+                    composable("profile") { ProfileScreen(navController) }
                 }
             }
         }
