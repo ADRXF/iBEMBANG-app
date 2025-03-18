@@ -118,7 +118,7 @@ fun CreateAccount(navController: NavController){
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = {},
+            onClick = {navController.navigate("otpverify")},
             //onClick = { navController.navigate("home") }, // Navigate to Home
             modifier = Modifier.fillMaxWidth().height(50.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1A1A3D))
