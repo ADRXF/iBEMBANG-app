@@ -1,5 +1,6 @@
 package com.example.ibembang
 
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,10 +25,12 @@ class MainActivity : ComponentActivity() {
                     composable("login") { LoginScreen(navController) }
                     composable("register") { CreateAccount(navController) }
                     composable("home") { HomeScreen(navController) }
-                    composable("rooms") { RoomScreen(navController) }
-                    composable("message") { MessageScreen(navController) }
-                    composable("booking") { BookingScreen(navController) }
-                    composable("profile") { ProfileScreen(navController) }
+                    composable("forgotpassword") { ForgotPasswordScreen(navController) }
+                    composable("otp") { OTPScreen(navController) }
+                    composable("resetpasswordpage") { ResetPasswordPage(navController) }
+                    composable("otpverify") { OTPverification (navController) }
+                    composable("congrats"){Congratulation(navController)}
+                    composable("PersonalInformationGathering") { PersonalInformationGathering (navController) }
                 }
             }
         }

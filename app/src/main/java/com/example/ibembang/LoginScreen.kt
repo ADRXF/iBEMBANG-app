@@ -85,7 +85,9 @@ fun LoginScreen(navController: NavController) {
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Blue,
-                modifier = Modifier.clickable { }
+                modifier = Modifier.clickable {
+                    navController.navigate("forgotpassword")
+                }
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -107,7 +109,7 @@ fun LoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedButton(
-            onClick = { },
+            onClick = { navController.navigate("otp") },
             modifier = Modifier.fillMaxWidth().height(50.dp),
             border = BorderStroke(1.dp, Color.Gray)
         ) {
