@@ -61,7 +61,7 @@ fun RoomScreen(navController: NavController) {
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
             ) {
                 items(getRoomList()) { room ->
-                    RoomItem(room)
+                    RoomItem(room, navController) // Pass navController
                 }
             }
         }
@@ -69,7 +69,7 @@ fun RoomScreen(navController: NavController) {
 }
 
 @Composable
-fun RoomItem(room: Room) {
+fun RoomItem(room: Room, navController: NavController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
