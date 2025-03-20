@@ -109,7 +109,7 @@ fun LoginScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedButton(
-            onClick = { navController.navigate("otp") },
+            onClick = { navController.navigate("viewroominformation") },
             modifier = Modifier.fillMaxWidth().height(50.dp),
             border = BorderStroke(1.dp, Color.Gray)
         ) {

@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
                     composable("message") { MessageScreen(navController) }
                     composable("booking") { BookingScreen(navController) }
                     composable("profile") { ProfileScreen(navController) }
+                    composable("viewroominformation") { ViewRoomInformation(navController) }
                 }
             }
         }
